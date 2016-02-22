@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="lib/howler.js"></script>
+
+    <script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+//  Web Scraper
+//  
+//  @todo add node js
+//  
+////////////////////////////////////////////////////////////////////////////////
+
+    const styles = {};
+
+    styles.form = {
+        width: 100
+    }
+
+    var App = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h1>Web Scraper</h1>
+                    <Form />
+                    <Results />
+                </div>
+            )
+        }
+    });
+
+    var Form = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <label for="url">URL</label>
+                    <input name="url" />
+                    <button>Go!</button>
+                </div>
+            )
+        }
+    });
+
+    var Results = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h2>Results</h2>
+                    <pre>{JSON.stringify({
+                        title: 'Title',
+                        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+                    }, null, 2)}</pre>
+                </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+    <App />,
+    document.getElementById('main')
+    );
+
+    </script>
+</html>
+ 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
+
+    <script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+//  Img Lab
+//  
+//  Image processing
+//   
+//  http://camanjs.com/
+//  
+////////////////////////////////////////////////////////////////////////////////
+
+    const styles = {};
+
+    styles.fx = {
+        width: 600
+    }
+    
+    var App = React.createClass({
+        getInitialState: function() {
+            return {
+                saturation: 0
+            }
+        },
+        componentWillMount: function() {
+            this.processImg();
+        },
+        componentDidUpdate: function() {
+            this.processImg();
+        },
+        processImg: function() {
+            var self = this;
+            Caman('#jaY', function () {
+                this.saturation(self.state.saturation);
+                this.render();
+            });
+        },
+        onChangeFx: function(e) {
+            this.setState({
+                saturation: e.target.value
+            });
+        },
+        render: function() {
+            return (
+                <div>
+                    <h1>Img Lab</h1>
+                    <img src="assets/jaY.png" id="jaY" />
+                    <input name="fx"
+                           type="range" 
+                           min="-100" 
+                           max="100" 
+                           step="1" 
+                           style={styles.fx} 
+                           onChange={this.onChangeFx} />
+                </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+    <App />,
+    document.getElementById('main')
+    );
+
+    </script>
+</html>
+ 

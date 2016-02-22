@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="lib/howler.js"></script>
+
+    <script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+//  Virtual DJ
+//  
+//  Inspired by: http://dinahmoelabs.com/rickastley
+//  
+//  https://github.com/goldfire/howler.js
+//  
+//  Further reading:
+//  https://github.com/soundblogs/react-soundplayer
+////////////////////////////////////////////////////////////////////////////////
+
+    const styles = {};
+
+    styles.volume = {
+        width: 100
+    }
+
+    var App = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h1>Virtual DJ</h1>
+                    <Deck />
+                </div>
+            )
+        }
+    });
+
+    var Deck = React.createClass({
+        getInitialState: function() {
+            return {
+                track: 'assets/track.mp3',
+                isPlaying: false,
+                volume: 0.5
+            }
+        },
+        onPlay: function() {
+            this.setState({
+                isPlaying: true 
+            });
+        },
+        onStop: function() {
+            this.setState({
+                isPlaying: false 
+            });
+        },
+        onChangeVolume: function(e) {
+            return;
+            this.setState({
+                volume: e.target.value
+            });
+        },
+        render: function() {
+            return (
+                <div>
+                    <Track {...this.state} />
+                    <input name="volume"
+                           type="range" 
+                           min="0" 
+                           max="1.0" 
+                           step="0.1" 
+                           style={styles.volume} 
+                           onChange={this.onChangeVolume } /><br />
+                    <button onClick={this.onPlay}>Play</button>
+                    <button onClick={this.onStop}>Stop</button>
+                </div>
+            )
+        }
+    });
+
+    var Track = React.createClass({
+        getDefaultProps: function() {
+            return {
+                track: 'assets/track.mp3'
+            }
+        },
+        componentDidMount: function() {
+            this.sound = new Howl({
+              urls: [this.props.track]
+            });
+            this.doImperativeWork();
+        },
+        componentDidUpdate: function() {
+            this.doImperativeWork();
+        },
+        doImperativeWork: function() {
+            if (this.props.isPlaying) {
+                this.sound.play()
+            }
+        },
+        render: function() {
+            console.log('Sound:props', this.props);
+            return null
+        }
+    });
+
+    ReactDOM.render(
+    <App />,
+    document.getElementById('main')
+    );
+
+    </script>
+</html>
+ 

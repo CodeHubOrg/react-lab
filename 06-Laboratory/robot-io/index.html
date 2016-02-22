@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
+
+    <script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+//  Robot Talk
+//  
+//  Cross device robot chat 
+//   
+//  @todo use socket io and node server
+//  @todo volume and pitch sliders
+//  
+////////////////////////////////////////////////////////////////////////////////
+
+    var App = React.createClass({
+        render: function() {
+            return (
+                <Robot />
+            )
+        }
+    });
+ 
+    var Robot = React.createClass({
+        onBeep: function() {
+            this.setState({
+                sound: 'Beep!'
+            });
+        },
+        onBoop: function() {
+            this.setState({
+                sound: 'Boop!'
+            });
+        },
+        render: function() {
+            return (
+                <div>
+                    <h1>Robot IO</h1>
+                    <button onClick={this.onBeep}>Beep</button>
+                    <button onClick={this.onBoop}>Boop</button>
+                </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+    <App />,
+    document.getElementById('main')
+    );
+
+    </script>
+</html>
+ 

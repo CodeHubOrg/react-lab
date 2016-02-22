@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>React Fundamentals</title>
+
+		<!-- le styles -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+	</head>
+
+	<body class="container"> 
+		<div id="main"></div>
+	</body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+	<script type="text/babel">
+    /*
+		Unidirectional Data Flow
+
+		Application state is managed in the top level component and flows down to the child components via props.
+
+		Source & Further reading:
+		https://hashnode.com/post/why-does-react-emphasize-on-unidirectional-data-flow-and-flux-architecture-ciibz8ej600n2j3xtxgc0n1f0	
+		https://scotch.io/tutorials/learning-react-getting-started-and-concepts#unidirectional-data-flow
+     */
+		var FilteredList = React.createClass({
+			filterList: (event) =>{
+				var updatedList = this.state.initialItems;
+				updatedList = updatedList.filter item => {
+					return item.toLowerCase().search(
+						event.target.value.toLowerCase()) !== -1;
+				});
+				this.setState({items: updatedList});
+			},
+			getInitialState: function() {
+				return {
+					initialItems: [
+						'Angular',
+						'Backbone',
+						'Ember',
+						'Express',
+						'React',
+						'Node',
+						'MongoDB',
+						'Polymer',
+						'Vue'
+					],
+					items: []
+				}
+			},
+			componentWillMount: function(){
+				this.setState({items: this.state.initialItems})
+			},
+			render: function(){
+				return (
+					<div className="filter-list">
+						<input type="text" placeholder="Search" onChange={this.filterList} />
+						<List items={this.state.items} />
+					</div>
+				)
+			}
+		});
+
+		var List = React.createClass({
+			render: function() {
+				return (
+					<ul>
+					{
+						this.props.items.map(function(item) {
+							return <li key={item}>{item}</li>
+						})
+					}
+					</ul>
+				)
+			}
+		});  
+
+		ReactDOM.render(
+			<FilteredList />,
+			document.getElementById('main')
+		);
+	</script>
+</html>
+ 

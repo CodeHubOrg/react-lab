@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>React Fundamentals</title>
+
+		<!-- le styles -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+	</head>
+
+	<body class="container"> 
+		<div id="main"></div>
+	</body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="lib/sort-by.js"></script>
+    <script src="lib/unique.js"></script>
+
+	<script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+// Exercise:
+//
+// - render DATA.title in an <h1>
+// - render a <ul> with each of DATA.items as an <li>
+// - now only render an <li> for mexican food (hint: use DATA.items.filter(...))
+// - sort the items in alphabetical order by name (hint: use sort-by https://github.com/staygrimm/sort-by#example)
+//
+// Got extra time?
+// - add a select dropdown to make filtering on `type` dynamic
+// - add a button to toggle the sort order
+// - Hint: you'll need an `updateThePage` function that calls `render`,
+//   and then you'll need to call it in the event handlers of the form controls
+////////////////////////////////////////////////////////////////////////////////
+
+        const DATA = {
+          title: 'Menu',
+          items: [
+            { id: 1, name: 'tacos', type: 'mexican' },
+            { id: 2, name: 'burrito', type: 'mexican' },
+            { id: 3, name: 'tostada', type: 'mexican' },
+            { id: 4, name: 'mushy peas', type: 'english' },
+            { id: 5, name: 'fish and chips', type: 'english' },
+            { id: 6, name: 'black pudding', type: 'english' }
+          ]
+        }
+
+        const SORT_ASC  = 'ascending';
+        const SORT_DESC = 'descending';
+        
+        var Menu = React.createClass({
+            getInitialState: function() {
+                return {
+                    menu: this.props.data.items,
+                    sortOrder: SORT_ASC,
+
+                }
+            },
+            getFoodTypes: function() {
+                let types = ['select...'];
+                for (var i = 0; i < this.props.data.items.length; i++) {
+                    let type = this.props.data.items[i]['type'];
+                    if (types.indexOf(type) === -1) {
+                        types.push(type);
+                    }
+                }
+                return types;
+            },
+            filterMenu: function(type) {
+                return this.props.data.items.filter(item => (item.type === type));
+            },
+            updateMenu: function(event) {
+                this.setState({
+                    menu: this.filterMenu(event.target.value)
+                });
+            },
+            sortMenu: function(order) {
+                this.setState({
+                    menu: this.state.menu.sort(sortBy(order === SORT_ASC ? 'name': '-name')),
+                    sortOrder: order
+                });
+            },
+            resetMenu: function(event) {
+                this.setState({
+                    menu: this.props.data.items
+                });
+            },
+            componentDidMount: function() {
+               this.sortMenu(SORT_ASC) ;
+            },
+            render: function() {
+                return (
+                    <div>
+                        <h1>{this.props.data.title}!</h1>
+                        <select onChange={this.updateMenu}>
+                            {
+                                this.getFoodTypes().map(type => 
+                                    <option key={type}>{type}</option>
+                                )
+                            }
+                        </select>
+                        {
+                            this.state.sortOrder === SORT_ASC ?
+                                <button type="button" onClick={() => this.sortMenu(SORT_DESC)}>{SORT_DESC}</button> :
+                                <button type="button" onClick={() => this.sortMenu(SORT_ASC)}>{SORT_ASC}</button>
+                        }
+                        <button type="button" onClick={() => this.resetMenu()}>Reset</button>
+                        <ul>
+                            {
+                                this.state.menu.map(item =>
+                                    <li key={item.id}>{item.name}</li>
+                                )
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+        });
+
+    	ReactDOM.render(
+    		<Menu data={DATA} />,
+    		document.getElementById('main')
+    	);
+	</script>
+</html>
+ 

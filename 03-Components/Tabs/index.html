@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+// Tab Components
+//
+////////////////////////////////////////////////////////////////////////////////
+
+        const DATA = [
+          { id: 1, name: 'USA', description: 'Land of the Free, Home of the brave' },
+          { id: 2, name: 'Brazil', description: 'Sunshine, beaches, and Carnival' },
+          { id: 3, name: 'Russia', description: 'World Cup 2018!' }
+        ]
+
+        const styles = {}
+
+        styles.tab = {
+          display: 'inline-block',
+          padding: 10,
+          margin: 10,
+          borderBottom: '4px solid',
+          borderBottomColor: '#ccc',
+          cursor: 'pointer'
+        }
+
+        styles.activeTab = {
+          ...styles.tab,
+          borderBottomColor: '#000'
+        }
+
+        styles.panel = {
+          padding: 10
+        }
+
+        var App = React.createClass({
+            render: function() {
+                return (
+                  <div>
+                    <h1>Countries</h1>
+                    <Tabs data={this.props.countries}/>
+                  </div>
+                )
+            }
+        });
+
+        var Tabs = React.createClass({
+            getInitialState: function() {
+                return {
+                    activeId: this.props.data[0].id
+                };
+            },
+            _handleClick: function(id) {
+                this.setState({
+                    activeId: id
+                });
+            },
+            render: function() {
+                return (
+                  <div className="Tabs">
+                    {
+                        this.props.data.map(country =>
+                            this.state.activeId === country.id ?
+                                <ActiveTab key={country.id} name={country.name} /> :
+                                <Tab key={country.id} id={country.id} name={country.name} onShow={this._handleClick} />
+                        )
+                    }
+                    <TabPanel description={this.props.data[this.state.activeId - 1].description} />
+                  </div>
+                )
+            }
+        });
+
+        var ActiveTab = React.createClass({
+            render: function() {
+                return (
+                    <div className="Tab" style={styles.activeTab}>
+                      {this.props.name}
+                    </div>
+                )
+            }
+        });
+
+        var Tab = React.createClass({
+            propTypes: {
+                onShow: React.PropTypes.func.isRequired,
+            },
+            _handleClick: function() {
+                this.props.onShow(this.props.id);
+            },
+            render: function() {
+                return (
+                    <div className="Tab" style={styles.tab} onClick={this._handleClick}>
+                      {this.props.name}
+                    </div>
+                )
+            }
+        });
+
+        var TabPanel = React.createClass({
+            render: function() {
+                return (
+                    <div className="TabPanel" style={styles.panel}>
+                      {this.props.description}
+                    </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <App countries={DATA} />,
+            document.getElementById('main')
+        );
+    </script>
+</html>
+ 

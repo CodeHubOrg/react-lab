@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <script type="text/babel">
+
+    /*
+        State - a collection of mutable values that are managed by the component it's self
+
+        Source / further info: 
+            https://egghead.io/lessons/react-state-basics
+            https://facebook.github.io/react/docs/interactivity-and-dynamic-uis.html
+            https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
+
+        Exercise: Create a new component with a state name attribute that can be updated by a text field
+     */
+        var App = React.createClass({
+            getInitialState: function() {
+                return {
+                    like: false
+                }
+            },
+            like: function() {
+                this.setState({
+                    like: !this.state.like
+                });
+            },
+            render: function() {
+                return (
+                    <div className="welcome">
+                        <h1>Hello { this.props.name }!</h1>
+                        <button type="button" className={this.state.like ? 'btn btn-primary' : 'btn btn-default'} onClick={this.like}>Like</button>
+                    </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <App name='Hacker' />,
+            document.getElementById('main')
+        );
+    </script>
+</html>
+ 

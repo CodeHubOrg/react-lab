@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="lib/createOscillator.js"></script>
+
+    <script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+//  Sound Waves
+//  
+//  Declarative programming example using the Web Audio API based on:
+//  https://github.com/ReactJSTraining/react-subjects/blob/master/subjects/05-imperative-to-declarative/lecture.js
+//  
+//  Further reading:
+//  https://www.netguru.co/blog/imperative-vs-declarative
+//  https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+//
+////////////////////////////////////////////////////////////////////////////////
+
+        const styles = {};
+
+        styles.theremin = {
+          height: 200,
+          width: 200,
+          fontSize: 10,
+          border: '1px solid',
+          cursor: 'crosshair',
+          margin: 10,
+          display: 'inline-block'
+        };
+
+        var App = React.createClass({
+
+            render: function() {
+                return (
+                    <div>
+                        <h1>Sound Waves</h1>
+                        <Theremin />
+                        <Theremin type="triangle" />
+                        <Theremin type="square" />
+                        <Theremin type="sawtooth" />
+                    </div>
+                )
+            }
+        });
+
+        var Tone = React.createClass({
+            propTypes: {
+                isPlaying: React.PropTypes.bool.isRequired,
+                pitch: React.PropTypes.number.isRequired,
+                volume: React.PropTypes.number.isRequired,
+                waveType: React.PropTypes.oneOf(['sine', 'triangle', 'square', 'sawtooth']).isRequired
+            },
+            getDefaultProps: function() {
+               return {
+                 waveType: 'sine'
+               }
+             },
+            componentDidMount: function() {
+                this.oscillator = createOscillator();
+                this.doImperativeWork();
+            },
+            componentDidUpdate: function() {
+                this.doImperativeWork();
+            },
+            doImperativeWork: function() {
+                if (this.props.isPlaying) {
+                    this.oscillator.play();
+                } else {
+                    this.oscillator.stop()
+                }
+                this.oscillator.setPitchBend(this.props.pitch)
+                this.oscillator.setVolume(this.props.volume)
+                this.oscillator.setType(this.props.waveType)
+            },
+            render: function() {
+                return null
+            }
+        });
+
+        var Theremin = React.createClass({
+            propTypes: {
+                type: React.PropTypes.oneOf(['sine', 'triangle', 'square', 'sawtooth']).isRequired
+            },
+            getInitialState: function() {
+                return {
+                    isPlaying: false,
+                    pitch: 0,
+                    volume: 0
+                }
+            },
+            play: function() {
+                this.setState({
+                    isPlaying: true
+                });
+            },
+            stop: function() {
+                this.setState({
+                    isPlaying: false 
+                });
+            },
+            changeTone: function(event) {
+                const { clientX, clientY } = event
+                const { top, right, bottom, left } = event.target.getBoundingClientRect()
+                const pitch = (clientX - left) / right
+                const volume = 1 - (clientY - top) / bottom
+
+                this.setState({
+                    pitch: pitch,
+                    volume: volume
+                });
+            },
+            render: function() {
+                return (
+                    <div
+                        style={styles.theremin}
+                        onMouseEnter={this.play}
+                        onMouseLeave={this.stop}
+                        onMouseMove={this.changeTone}
+                    >
+                        <Tone {...this.state} waveType={this.props.type} />
+                    </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+        <App />,
+        document.getElementById('main')
+        );
+    </script>
+</html>
+ 

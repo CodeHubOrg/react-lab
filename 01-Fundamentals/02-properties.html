@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <script type="text/babel">
+
+    /*
+        Properties - are passed into components as static values or methods.
+
+        Mutating props is bad mmkay!
+        https://facebook.github.io/react/docs/jsx-spread.html#mutating-props-is-bad
+
+        Source / further info:
+        https://egghead.io/lessons/react-introduction-to-properties
+        https://facebook.github.io/react/docs/jsx-spread.html#spread-attributes
+
+        Exercise: Create a person component with three properties. Set the properties via the following ways:
+            - attributes
+            - default properties
+            - spread attributes
+     */
+        var App = React.createClass({
+            propTypes: {
+                name: React.PropTypes.string,
+                cat: React.PropTypes.number.isRequired
+            },
+            getDefaultProps: function() {
+                return {
+                    name: "Hacker"
+                }
+            },
+            render: function() {
+                return (
+                    <h1>Hello { this.props.name }!</h1>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <App cat={42} />,
+            document.getElementById('main')
+        );
+    </script>
+</html>
+ 

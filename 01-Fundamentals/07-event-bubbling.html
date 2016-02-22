@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <script type="text/babel">
+
+    /*
+        Event bubbling
+
+        Source / Further reading:
+        http://www.newmediacampaigns.com/blog/react-bubble-events
+     */
+        var Controller = React.createClass({
+            getInitialState: function() {
+                return {
+                    name: 'There'
+                };
+            },
+            render: function() {
+                return (
+                    <View name={this.state.name} onUpdate={this._handleChange} />
+                );
+            },
+            _handleChange: function(e) {
+                this.setState({name: e.target.value});
+            }
+        });
+
+        var View = React.createClass({
+            propTypes: {
+                onUpdate: React.PropTypes.func.isRequired,
+            },
+            render: function() {
+                return (
+                    <div>
+                        <h1>Hello {this.props.name} </h1>
+                        <input type="text" onChange={this._handleChange} placeholder="What's your name?" />
+                    </div>
+                );
+            },
+            _handleChange: function(e) {
+                e.preventDefault();
+
+                this.props.onUpdate(e);
+            }
+        });
+
+        ReactDOM.render(
+            <Controller />,
+            document.getElementById('main')
+        );
+    </script>
+</html>
+ 

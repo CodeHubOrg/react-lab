@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script type="text/babel">
+
+////////////////////////////////////////////////////////////////////////////////
+// Modal Component
+// 
+// Source: https://github.com/ReactJSTraining/react-subjects/tree/master/subjects/05-imperative-to-declarative
+//
+////////////////////////////////////////////////////////////////////////////////
+
+        var App = React.createClass({
+            getInitialState: function() {
+                return { 
+                    isModalOpen: false 
+                }
+            },
+            openModal: function() {
+                this.setState({
+                    isModalOpen: true   
+                });
+            },
+            closeModal: function() {
+                this.setState({
+                    isModalOpen: false
+                });
+            },
+            render: function() {
+                return (
+                    <div>
+                        <h1>Unbreakable</h1>
+                        <button onClick={this.openModal}>remove from favorites</button><br/><br/>
+
+                        <img src="http://filmmakeriq.com/wp-content/uploads/2015/05/Unbreakable.jpg"/>
+                        <p>
+                          Your bones don’t break, mine do. That’s clear. Your cells react to
+                          bacteria and viruses differently than mine. You don’t get sick, I do.
+                          That’s also clear. But for some reason, you and I react the exact
+                          same way to water. We swallow it too fast, we choke. We get some in
+                          our lungs, we drown. However unreal it may seem, we are connected,
+                          you and I. We’re on the same curve, just on opposite ends.
+                        </p>
+
+                        <Modal isOpen={this.state.isModalOpen}>
+                          <button onClick={this.closeModal}>close</button>
+                          <p>Calling methods on instances is a FLOW not a STOCK!</p>
+                          <p>It’s the dynamic process, not the static program in text space.</p>
+                          <p>You have to experience it over time, rather than in snapshots of state.</p>
+                        </Modal>
+                    </div>
+                )
+            }
+        });
+
+        var Modal = React.createClass({
+            propTypes: {
+                isOpen: React.PropTypes.bool.isRequired
+            },
+            containerStyle: {
+                position: 'fixed',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                background: 'rgba(255, 255, 255, 0.75)'
+            },
+            contentStyle: {
+                position: 'fixed',
+                padding: 10,
+                left: 50,
+                right: 50,
+                top: 50,
+                bottom: 50,
+                background: '#fff',
+                border: '1px solid',
+                textAlign: 'center'
+            },
+            render: function() {
+                if (!this.props.isOpen) {
+                    return null
+                }
+                return (
+                  <div style={this.containerStyle}>
+                    <div style={this.contentStyle}>
+                      {this.props.children}
+                    </div>
+                  </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('main')
+        );
+    </script>
+</html>
+ 

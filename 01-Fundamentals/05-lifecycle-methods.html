@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>React Fundamentals</title>
+
+        <!-- le styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    </head>
+
+    <body class="container"> 
+        <div id="main"></div>
+    </body>
+
+    <!-- js -->
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <script type="text/babel">
+
+    /*
+        Lifecycle methods
+
+        Source / further info: 
+            http://facebook.github.io/react/docs/component-specs.html
+            https://egghead.io/lessons/react-component-lifecycle-mounting-basics?series=react-fundamentals
+
+        Exercise: Add a componentWillUnmount lifecycle method that console logs 'removed' and a wrapper component that removes it's child from the DOM.
+     */
+        var App = React.createClass({
+            getInitialState: function() {
+                return {
+                    val: 0 
+                }
+            },
+            componentWillMount: function() {
+                console.log('mounting');
+            },
+            componentDidMount: function() {
+                console.log('mounted');
+            },
+            componentDidUpdate: function() {
+                console.log('updated');
+            },
+            handleClick: function() {
+                this.setState({
+                    val: 1
+                });
+            },
+            render: function() {
+                console.log('rendering');
+                return (
+                    <div className="welcome">
+                        <h1>{ this.props.title }</h1>
+                        <button type="button" onClick={this.handleClick}>Update</button>
+                    </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <App title='Lifecycle Methods' />,
+            document.getElementById('main')
+        );
+    </script>
+</html>
+ 

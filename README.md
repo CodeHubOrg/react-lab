@@ -1,4 +1,4 @@
-### React Lab
+# React Lab
 A repo equipped for sharing ReactJS examples and research.
 
 ## 01 Fundamentals

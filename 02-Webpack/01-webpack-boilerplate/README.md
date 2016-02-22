@@ -1,4 +1,4 @@
-### Webpack Dev Server Boilerplate
+# Webpack Dev Server Boilerplate
 
 ## Source and further info
 http://survivejs.com/webpack_react/developing_with_webpack/

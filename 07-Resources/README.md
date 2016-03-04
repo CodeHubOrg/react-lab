@@ -32,6 +32,9 @@ https://github.com/planningcenter/react-patterns/blob/master/README.md
 https://news.ycombinator.com/item?id=6937921
 https://news.ycombinator.com/item?id=6936975
 
+### The Future of Javascript
+http://swannodette.github.io/2013/12/17/the-future-of-javascript-mvcs/
+
 ## Videos
 ### ReactJS and the Flux architecture
 https://www.phproundtable.com/episode/implementing-reactjs-and-the-flux-application-architecture

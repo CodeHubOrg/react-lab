@@ -28,8 +28,14 @@ https://medium.com/@learnreact/container-components-c0e67432e005#.f6o39ev0b
 ### React Patterns
 https://github.com/planningcenter/react-patterns/blob/master/README.md
 
+### Hacker News
+https://news.ycombinator.com/item?id=6937921
+https://news.ycombinator.com/item?id=6936975
+
 ## Videos
 ### ReactJS and the Flux architecture
 https://www.phproundtable.com/episode/implementing-reactjs-and-the-flux-application-architecture
 ### How Instagram.com Works
 https://www.youtube.com/watch?v=VkTCL6Nqm6Y
+### Pete Hunt: React: Rethinking best practices
+http://2013.jsconf.eu/speakers/pete-hunt-react-rethinking-best-practices.html

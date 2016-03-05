@@ -16,6 +16,9 @@ https://survivejs.com/
 
 ## Useful Links
 
+### Thinking in React
+https://facebook.github.io/react/docs/thinking-in-react.html
+
 ### Imperative vs. Declarative Programming - Pros and Cons
 https://www.netguru.co/blog/imperative-vs-declarative
 

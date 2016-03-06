@@ -31,6 +31,9 @@ https://medium.com/@learnreact/container-components-c0e67432e005#.f6o39ev0b
 ### React Patterns
 https://github.com/planningcenter/react-patterns/blob/master/README.md
 
+### React Kung Fu
+http://reactkungfu.com/
+
 ### Hacker News
 https://news.ycombinator.com/item?id=6937921
 https://news.ycombinator.com/item?id=6936975

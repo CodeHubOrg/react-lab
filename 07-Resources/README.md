@@ -38,6 +38,9 @@ https://news.ycombinator.com/item?id=6936975
 ### The Future of Javascript
 http://swannodette.github.io/2013/12/17/the-future-of-javascript-mvcs/
 
+### Sites using React
+https://github.com/facebook/react/wiki/Sites-Using-React
+
 ## Videos
 ### ReactJS and the Flux architecture
 https://www.phproundtable.com/episode/implementing-reactjs-and-the-flux-application-architecture

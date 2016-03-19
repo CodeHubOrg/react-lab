@@ -28,9 +28,9 @@
 		https://scotch.io/tutorials/learning-react-getting-started-and-concepts#unidirectional-data-flow
      */
 		var FilteredList = React.createClass({
-			filterList: (event) =>{
+			filterList: function (event) {
 				var updatedList = this.state.initialItems;
-				updatedList = updatedList.filter item => {
+				updatedList = updatedList.filter(item => {
 					return item.toLowerCase().search(
 						event.target.value.toLowerCase()) !== -1;
 				});
